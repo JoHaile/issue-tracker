@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@radix-ui/themes";
+import { IconButton } from "@radix-ui/themes";
 import { Moon, Sun, SunMoon } from "lucide-react";
 import { useTheme } from "next-themes";
 import React from "react";
@@ -9,15 +9,16 @@ function ChangeTheme() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="cursor-pointer">
-      <Button
+    <div className="">
+      <IconButton
         className="rounded-xl items-center flex"
+        variant="soft"
         onClick={() => {
           theme === "dark" ? setTheme("light") : setTheme("dark");
         }}
       >
-        <SunMoon />
-      </Button>
+        <SunMoon width="100" className="p-0.5 cursor-pointer" />
+      </IconButton>
     </div>
   );
 }
