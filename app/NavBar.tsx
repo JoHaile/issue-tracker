@@ -11,7 +11,7 @@ function NavBar() {
   const path = usePathname();
 
   return (
-    <Flex p="4" justify="between" className="border-b-1 border-b-gray-500">
+    <Flex justify="between" className="border-b-1 border-b-gray-500 p-4 mb-8">
       <div className="flex gap-7 items-center">
         <Link href="/">
           <Bug />
