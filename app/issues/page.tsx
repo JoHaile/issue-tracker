@@ -31,7 +31,12 @@ async function page() {
           {issues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.Cell>
-                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                <Link
+                  href={`/issues/${issue.id}`}
+                  className="link text-blue-400 hover:underline"
+                >
+                  {issue.title}
+                </Link>
                 <div className="sm:hidden block">
                   <IssueStatusBadge status={issue.status} />
                 </div>
