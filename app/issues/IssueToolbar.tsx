@@ -5,9 +5,9 @@ import React from "react";
 function IssueToolbar() {
   return (
     <div className="p-4">
-      <Button>
-        <Link href="/issues/new">New Issue</Link>
-      </Button>
+      <Link href="/issues/new">
+        <Button>New Issue</Button>
+      </Link>
     </div>
   );
 }

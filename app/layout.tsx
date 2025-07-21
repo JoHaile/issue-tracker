@@ -33,7 +33,7 @@ export default function RootLayout({
             accentColor="blue"
             scaling="105%"
             grayColor="sand"
-            radius="large"
+            radius="small"
           >
             <NavBar />
             <main className="px-4">{children}</main>
