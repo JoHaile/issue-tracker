@@ -1,6 +1,6 @@
 // "use server";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { redirect } from "next/navigation";
 
 export async function issueFormAction(prevState: unknown, formData: FormData) {
@@ -10,9 +10,14 @@ export async function issueFormAction(prevState: unknown, formData: FormData) {
   };
 
   try {
-    axios.post("/api/issues", issueData);
-    redirect("/issues");
+    await axios.post("/api/issues", issueData);
+    return { errorMessage: "form submitted." };
   } catch (error) {
-    return { errorMessage: "unexpected error Happened" };
+    console.log(error);
+    if (error instanceof AxiosError) {
+      if (error.code === "ERR_BAD_REQUEST")
+        return { errorMessage: "Please fill out the form properly." };
+      return { errorMessage: "unexpected error has occurred." };
+    }
   }
 }

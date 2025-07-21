@@ -3,6 +3,7 @@
 import ErrorComponent from "@/app/components/Error/Error";
 import { issueFormAction } from "@/lib/issueFormServerAction";
 import { Button, TextArea, TextField } from "@radix-ui/themes";
+import { useRouter } from "next/router";
 import React, { useActionState } from "react";
 
 interface IssueForm {
@@ -15,10 +16,15 @@ function page() {
     issueFormAction,
     undefined
   );
+  const router = useRouter();
+
+  if (!state?.errorMessage.length) {
+    router.push("/issues");
+  }
 
   return (
     <div className="w-4/6">
-      {state?.errorMessage && (
+      {state?.errorMessage.length && (
         <ErrorComponent errorMessage={state.errorMessage} />
       )}
 
