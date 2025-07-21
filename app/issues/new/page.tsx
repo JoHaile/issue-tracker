@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorComponent from "@/app/components/Error/Error";
+import { ErrorComponent } from "@/app/components";
 import { Button, TextArea, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
