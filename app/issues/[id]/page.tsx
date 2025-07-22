@@ -19,7 +19,7 @@ async function issueDetailsPage({ params }: Props) {
   if (!issue) notFound();
 
   return (
-    <Grid columns={{ initial: "1", sm: "2" }}>
+    <Grid columns={{ initial: "1", sm: "2" }} gap="5">
       <Box>
         <IssueDetails issue={issue} />
       </Box>

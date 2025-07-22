@@ -15,14 +15,14 @@ async function page() {
   return (
     <div>
       <IssueToolbar />
-      <Table.Root variant="surface">
+      <Table.Root variant="surface" className="max-w-5xl">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
+            <Table.ColumnHeaderCell className="hidden sm:table-cell">
               Status
             </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
+            <Table.ColumnHeaderCell className="hidden sm:table-cell">
               Created
             </Table.ColumnHeaderCell>
           </Table.Row>
@@ -37,14 +37,14 @@ async function page() {
                 >
                   {issue.title}
                 </Link>
-                <div className="sm:hidden block">
+                <div className="sm:hidden block py-1 mt-1">
                   <IssueStatusBadge status={issue.status} />
                 </div>
               </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
+              <Table.Cell className="hidden sm:table-cell">
                 <IssueStatusBadge status={issue.status} />
               </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
+              <Table.Cell className="hidden sm:table-cell">
                 {issue.createdAt.toDateString()}
               </Table.Cell>
             </Table.Row>
