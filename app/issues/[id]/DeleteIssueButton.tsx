@@ -6,7 +6,7 @@ function DeleteIssueButton({ id }: { id: number }) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button color="red" className="whitespace-nowrap">
+        <Button color="red">
           <Delete />
           <span className="text-nowrap">Delete Issue</span>
         </Button>
@@ -24,7 +24,7 @@ function DeleteIssueButton({ id }: { id: number }) {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button color="red">Delete Issue</Button>
+            <Button color="red" onClick={() => }>Delete Issue</Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>
