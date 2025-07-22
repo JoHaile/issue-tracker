@@ -6,7 +6,10 @@ import React from "react";
 function EditIssueButton({ id }: { id: number }) {
   return (
     <Button>
-      <Link href={`/issues/${id}/edit`} className="cursor-pointer flex gap-1.5">
+      <Link
+        href={`/issues/${id}/edit`}
+        className="cursor-pointer flex gap-1.5 w-full justify-center"
+      >
         <Edit size={19} />
         Edit Issue
       </Link>
