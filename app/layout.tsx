@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Theme, ThemePanel, Container } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
 import NavBar from "./NavBar";
 
@@ -36,7 +36,9 @@ export default function RootLayout({
             radius="small"
           >
             <NavBar />
-            <main className="px-4">{children}</main>
+            <main className="px-4">
+              <Container>{children}</Container>
+            </main>
           </Theme>
         </ThemeProvider>
       </body>

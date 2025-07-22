@@ -5,12 +5,12 @@ import React from "react";
 
 function EditIssueButton({ id }: { id: number }) {
   return (
-    <Link href={`/issues/${id}/edit`} className="cursor-pointer">
-      <Button>
+    <Button>
+      <Link href={`/issues/${id}/edit`} className="cursor-pointer flex gap-1.5">
         <Edit size={19} />
         Edit Issue
-      </Button>
-    </Link>
+      </Link>
+    </Button>
   );
 }
 
