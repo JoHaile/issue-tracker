@@ -3,11 +3,9 @@ import { getSessionCookie } from "better-auth/cookies";
 
 export async function middleware(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
-
   if (!sessionCookie) {
-    return NextResponse.redirect(new URL("/", request.url)); // Todo: redirect them to the sign up page
+    return NextResponse.redirect(new URL("/sign-up", request.url));
   }
-
   return NextResponse.next();
 }
 

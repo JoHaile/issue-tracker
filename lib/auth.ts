@@ -7,6 +7,15 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "mysql",
   }),
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: true,
+  },
 
+  account: {
+    accountLinking: {
+      enabled: true,
+    },
+  },
   plugins: [nextCookies()],
 });
