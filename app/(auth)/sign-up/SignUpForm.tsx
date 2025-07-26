@@ -1,8 +1,9 @@
 "use client";
 
 import { ErrorComponent } from "@/app/components";
+import SuccessMessage from "@/app/components/Success";
 import { signUp } from "@/lib/action";
-import { AlertDialog, Button, Flex, TextField } from "@radix-ui/themes";
+import { AlertDialog, Badge, Button, Flex, TextField } from "@radix-ui/themes";
 import { Facebook, Github } from "lucide-react";
 import { useActionState } from "react";
 
@@ -11,14 +12,20 @@ function SignUpForm() {
 
   return (
     <>
-      {state?.errorMessage && (
-        <ErrorComponent errorMessage={state?.errorMessage} icon={true} />
-      )}
-
       <form
         action={formAction}
         className="max-w-lg text-left m-auto space-y-5 "
       >
+        <div className="mt-8">
+          {state?.errorMessage && (
+            <ErrorComponent message={state?.errorMessage} icon={true} />
+          )}
+
+          {state?.successMessage && (
+            <SuccessMessage message={state.successMessage} icon={true} />
+          )}
+        </div>
+
         <Flex gap="5" justify="center" mt="5">
           <Button variant="soft">
             <Facebook />

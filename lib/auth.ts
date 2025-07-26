@@ -1,3 +1,4 @@
+import { sendEmailVerification } from "@/mail/sendEmailVerification";
 import { prisma } from "@/prisma/client";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
@@ -7,9 +8,19 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "mysql",
   }),
+
+  emailVerification: {
+    sendVerificationEmail: async ({ url, user, token }) => {
+      await sendEmailVerification(url, user);
+    },
+    autoSignInAfterVerification: true,
+  },
+
   emailAndPassword: {
     enabled: true,
-    autoSignIn: true,
+    autoSignIn: false,
+    minPasswordLength: 6,
+    requireEmailVerification: true,
   },
 
   account: {

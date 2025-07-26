@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "./auth";
 import { APIError } from "better-auth/api";
 import { headers } from "next/headers";
+import { success } from "zod";
 
 export const signUp = async (prevState: unknown, formData: FormData) => {
   const { email, fullName, password } = {
@@ -18,9 +19,13 @@ export const signUp = async (prevState: unknown, formData: FormData) => {
         name: fullName,
         email: email,
         password: password,
+        callbackURL: "/dashboard",
       },
       headers: await headers(),
     });
+    return {
+      successMessage: "Please check your email to verify your account.",
+    };
   } catch (error) {
     if (error instanceof APIError) {
       switch (error.status) {
@@ -40,5 +45,5 @@ export const signUp = async (prevState: unknown, formData: FormData) => {
     );
   }
 
-  redirect("/dashboard");
+  // redirect("/dashboard");
 };

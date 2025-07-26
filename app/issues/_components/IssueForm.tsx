@@ -43,14 +43,14 @@ function IssueForm({ issue }: Props) {
 
   return (
     <div className="w-4/6">
-      {error && <ErrorComponent errorMessage={error} />}
+      {error && <ErrorComponent message={error} />}
       <form onSubmit={onSubmit} className="space-y-4">
         <TextField.Root
           placeholder="Title"
           defaultValue={issue?.title}
           {...register("title")}
         />
-        {errors.title && <ErrorComponent errorMessage={errors.title.message} />}
+        {errors.title && <ErrorComponent message={errors.title.message} />}
         <TextArea
           placeholder="Description..."
           rows={8}
@@ -58,7 +58,7 @@ function IssueForm({ issue }: Props) {
           {...register("description")}
         />
         {errors.description && (
-          <ErrorComponent errorMessage={errors.description.message} />
+          <ErrorComponent message={errors.description.message} />
         )}
         <Button type="submit" disabled={isLoading}>
           {isLoading ? "Loading..." : issue ? "Update Issue" : "Create Issue"}
