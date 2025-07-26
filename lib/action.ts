@@ -1,10 +1,9 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import { auth } from "./auth";
 import { APIError } from "better-auth/api";
 import { headers } from "next/headers";
-import { success } from "zod";
+import { auth } from "./auth";
+import { redirect } from "next/navigation";
 
 export const signUp = async (prevState: unknown, formData: FormData) => {
   const { email, fullName, password } = {
@@ -17,8 +16,8 @@ export const signUp = async (prevState: unknown, formData: FormData) => {
     await auth.api.signUpEmail({
       body: {
         name: fullName,
-        email: email,
-        password: password,
+        email,
+        password,
         callbackURL: "/dashboard",
       },
       headers: await headers(),
@@ -44,6 +43,38 @@ export const signUp = async (prevState: unknown, formData: FormData) => {
       error
     );
   }
+};
 
-  // redirect("/dashboard");
+export const login = async (prevState: unknown, formData: FormData) => {
+  const { email, password } = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  try {
+    await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+        callbackURL: "/dashboard",
+      },
+      headers: await headers(),
+    });
+  } catch (error) {
+    if (error instanceof APIError) {
+      switch (error.status) {
+        case "UNAUTHORIZED":
+          return { errorMessage: "Invalid email or Password." };
+        case "NOT_FOUND":
+          return { errorMessage: "User not found." };
+        case "BAD_REQUEST":
+          return { errorMessage: "something went wrong" };
+        default:
+          return { errorMessage: "please verify your email?." };
+      }
+    }
+    console.log(error);
+  }
+
+  redirect("/dashboard");
 };

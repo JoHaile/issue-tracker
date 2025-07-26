@@ -27,6 +27,6 @@ export async function sendEmailVerification(url: string, user: User) {
   try {
     await transporter.sendMail(message);
   } catch (error) {
-    console.log(error);
+    console.log("Something went wrong. Please try again later!", error);
   }
 }
