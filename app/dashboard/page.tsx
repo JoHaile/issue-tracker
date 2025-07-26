@@ -15,7 +15,7 @@ async function dashboardPage() {
 
   return (
     <>
-      <Heading> Dashboard Page </Heading>
+      <Heading> Dashboard Page {session.user.name} </Heading>
     </>
   );
 }

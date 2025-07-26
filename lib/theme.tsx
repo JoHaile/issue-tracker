@@ -9,7 +9,7 @@ function ChangeTheme() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="">
+    <div>
       <IconButton
         className="rounded-xl items-center flex"
         variant="soft"
