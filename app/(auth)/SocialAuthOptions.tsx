@@ -1,10 +1,8 @@
 "use client";
 
-import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 import { Button, Flex } from "@radix-ui/themes";
 import { Facebook, Github } from "lucide-react";
-import React from "react";
 
 type providers = "google" | "github" | "apple" | "facebook" | "microsoft";
 
@@ -22,12 +20,20 @@ export const handleSocialAuth = async (provider: providers) => {
 function SocialAuthOptions() {
   return (
     <Flex gap="5" justify="center" mt="5">
-      <Button variant="soft" onClick={() => handleSocialAuth("google")}>
+      <Button
+        variant="soft"
+        type="button"
+        onClick={() => handleSocialAuth("google")}
+      >
         <Facebook />
         Google
       </Button>
 
-      <Button variant="soft" onClick={() => handleSocialAuth("github")}>
+      <Button
+        variant="soft"
+        type="button"
+        onClick={() => handleSocialAuth("github")}
+      >
         <Github />
         Git Hub
       </Button>

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { Theme, ThemePanel, Container } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
-import NavBar from "./NavBar";
+import NavBar from "./_Navbar/NavBar";
 
 const geistSans = Geist({
   subsets: ["latin"],
