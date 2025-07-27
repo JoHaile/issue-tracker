@@ -32,7 +32,7 @@ export default function RootLayout({
           <Theme
             accentColor="blue"
             scaling="105%"
-            grayColor="sand"
+            grayColor="gray"
             radius="small"
           >
             <NavBar />

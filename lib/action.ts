@@ -4,6 +4,9 @@ import { APIError } from "better-auth/api";
 import { headers } from "next/headers";
 import { auth } from "./auth";
 import { redirect } from "next/navigation";
+import { createAuthClient } from "better-auth/client";
+
+const authClient = createAuthClient();
 
 export const signUp = async (prevState: unknown, formData: FormData) => {
   const { email, fullName, password } = {
@@ -77,4 +80,15 @@ export const login = async (prevState: unknown, formData: FormData) => {
   }
 
   redirect("/dashboard");
+};
+
+export const handleSocialAuth = async () => {
+  const data = await auth.api.signInSocial({
+    body: {
+      provider: "google",
+      callbackURL: "/dashboard",
+    },
+
+    headers: await headers(),
+  });
 };

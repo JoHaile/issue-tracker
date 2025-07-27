@@ -1,11 +1,10 @@
 "use client";
 
 import { ErrorComponent } from "@/app/components";
-import SuccessMessage from "@/app/components/Success";
 import { login } from "@/lib/action";
-import { Button, Flex, TextField } from "@radix-ui/themes";
-import { Facebook, Github } from "lucide-react";
-import React, { useActionState } from "react";
+import { Button, TextField } from "@radix-ui/themes";
+import { useActionState } from "react";
+import SocialAuthOptions from "../SocialAuthOptions";
 
 function LoginForm() {
   const [state, formAction, isPending] = useActionState(login, undefined);
@@ -16,17 +15,6 @@ function LoginForm() {
           <ErrorComponent message={state?.errorMessage} icon={true} />
         )}
       </div>
-
-      <Flex gap="5" justify="center" mt="5">
-        <Button variant="soft">
-          <Facebook />
-          Google
-        </Button>
-        <Button variant="soft">
-          <Github />
-          Git Hub
-        </Button>
-      </Flex>
 
       <label htmlFor="email">Email</label>
       <TextField.Root

@@ -6,6 +6,7 @@ import { signUp } from "@/lib/action";
 import { AlertDialog, Badge, Button, Flex, TextField } from "@radix-ui/themes";
 import { Facebook, Github } from "lucide-react";
 import { useActionState } from "react";
+import SocialAuthOptions from "../SocialAuthOptions";
 
 function SignUpForm() {
   const [state, formAction, isPending] = useActionState(signUp, undefined);
@@ -26,16 +27,7 @@ function SignUpForm() {
           )}
         </div>
 
-        <Flex gap="5" justify="center" mt="5">
-          <Button variant="soft">
-            <Facebook />
-            Google
-          </Button>
-          <Button variant="soft">
-            <Github />
-            Git Hub
-          </Button>
-        </Flex>
+        <SocialAuthOptions />
 
         <label htmlFor="fullname">Full Name</label>
         <TextField.Root

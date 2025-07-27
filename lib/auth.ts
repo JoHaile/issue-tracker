@@ -9,6 +9,18 @@ export const auth = betterAuth({
     provider: "mysql",
   }),
 
+  socialProviders: {
+    google: {
+      prompt: "select_account",
+      clientId: process.env.GOOGLE_CLIENT_ID! as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
+    },
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID! as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET! as string,
+    },
+  },
+
   emailVerification: {
     sendVerificationEmail: async ({ url, user }) => {
       await sendEmailVerification(url, user);

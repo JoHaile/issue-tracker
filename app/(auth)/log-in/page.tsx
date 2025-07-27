@@ -5,6 +5,7 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import SocialAuthOptions from "../SocialAuthOptions";
 
 async function loginPage() {
   const session = await auth.api.getSession({
@@ -19,6 +20,7 @@ async function loginPage() {
     <div className="text-center">
       <Heading>Welcome Back</Heading>
       <Text>Log In to Continue.</Text>
+      <SocialAuthOptions />
       <LoginForm />
 
       <div className="space-x-2">
