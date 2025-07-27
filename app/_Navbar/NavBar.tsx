@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <Flex justify="between" className="border-b-1 border-b-gray-500 p-4 mb-8">
       <NavLinks />
-      <div className="flex space-x-4">
+      <div className="flex gap-4 ">
         <SignOutButton />
         <ChangeTheme />
       </div>
