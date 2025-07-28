@@ -25,11 +25,11 @@ async function issueDetailsPage({ params }: Props) {
   if (!issue) notFound();
 
   return (
-    <Grid columns={{ initial: "1", sm: "5" }} gap="5">
-      <Box className="sm:col-span-4">
+    <Grid columns={{ initial: "1", sm: "8" }} gap="5">
+      <Box className="sm:col-span-6">
         <IssueDetails issue={issue} />
       </Box>
-      <Box className="sm:col-span-4 md:col-span-1">
+      <Box className="sm:col-span-4 md:col-span-2">
         {session && (
           <Flex
             direction="column"

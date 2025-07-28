@@ -14,13 +14,7 @@ function SignOutButton() {
     data?.success ? redirect("/log-in") : console.log("Sign out failed");
   };
 
-  return (
-    session && (
-      <Button variant="soft" onClick={handleSignOut}>
-        Log Out
-      </Button>
-    )
-  );
+  return session && <Button onClick={handleSignOut}>Log Out</Button>;
 }
 
 export default SignOutButton;
