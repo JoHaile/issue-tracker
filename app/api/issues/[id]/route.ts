@@ -1,11 +1,24 @@
 import { issueSchema } from "@/app/validationSchema";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/prisma/client";
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Props {
   params: { id: string };
 }
 export async function PATCH(request: NextRequest, { params }: Props) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "can not find the session" },
+      { status: 401 }
+    );
+  }
+
   const { id } = params;
   const body = await request.json();
   const validation = issueSchema.safeParse(body);
@@ -35,6 +48,16 @@ export async function PATCH(request: NextRequest, { params }: Props) {
 }
 
 export async function DELETE(request: NextRequest, { params }: Props) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "can not find the session" },
+      { status: 401 }
+    );
+  }
   const { id } = params;
 
   const issue = await prisma.issue.findUnique({
