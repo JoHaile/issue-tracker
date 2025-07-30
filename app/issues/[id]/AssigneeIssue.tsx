@@ -1,11 +1,15 @@
 "use client";
 
-import { Select } from "@radix-ui/themes";
-import axios from "axios";
+import { AlertDialog, Select } from "@radix-ui/themes";
+import axios, { AxiosError } from "axios";
 import { User } from "better-auth";
 import React, { useEffect, useState } from "react";
+interface Props {
+  id: number;
+  assignedToUserID: string | null;
+}
 
-function AssigneeIssue() {
+function AssigneeIssue({ id, assignedToUserID }: Props) {
   const [users, setUsers] = useState<User[]>();
 
   useEffect(() => {
@@ -23,13 +27,29 @@ function AssigneeIssue() {
     fetchUsers();
   }, []);
 
+  const handleAssign = (userID: string) => {
+    axios
+      .patch(`/api/issues/${id}`, {
+        assignedToUserID: userID === "null" ? null : userID,
+      })
+      .catch((error) => {
+        // TODO: show a toaster for an error
+        alert("Issue can not ne Assigned./n please try again later.");
+        console.log(error);
+      });
+  };
+
   return (
-    <Select.Root>
+    <Select.Root
+      defaultValue={assignedToUserID ? assignedToUserID : "null"}
+      onValueChange={(userID) => handleAssign(userID)}
+    >
       <Select.Trigger placeholder="Assign Issue" />
       <Select.Content>
         <Select.Group>
           <Select.Label>Users</Select.Label>
           <Select.Separator />
+          <Select.Item value="null">UnAssigned</Select.Item>
           {users?.map((user) => (
             <Select.Item key={user.id} value={user.id} className="capitalize">
               {user.name}

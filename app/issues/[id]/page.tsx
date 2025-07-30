@@ -25,23 +25,6 @@ async function issueDetailsPage({ params }: Props) {
 
   if (!issue) notFound();
 
-  //? TEST
-  const users = await prisma.user.findMany({
-    orderBy: {
-      createdAt: "asc",
-    },
-  });
-
-  const handleAssignee = async (userID: string) => {
-    const updatedIssue = await prisma.issue.update({
-      where: {
-        id: parseInt(id),
-      },
-      data: {
-        assignedToUserID: userID,
-      },
-    });
-  };
   return (
     <Grid columns={{ initial: "1", sm: "8" }} gap="5">
       <Box className="sm:col-span-6">
@@ -55,7 +38,10 @@ async function issueDetailsPage({ params }: Props) {
             maxWidth={{ initial: "500px" }}
             m={{ initial: "auto" }}
           >
-            <AssigneeIssue />
+            <AssigneeIssue
+              id={issue.id}
+              assignedToUserID={issue.assignedToUserID}
+            />
             <EditIssueButton id={issue.id} />
             <DeleteIssueButton id={issue.id} />
           </Flex>
