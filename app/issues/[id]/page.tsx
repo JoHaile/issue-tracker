@@ -6,6 +6,7 @@ import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import AssigneeIssue from "./AssigneeIssue";
 
 interface Props {
   params: { id: string };
@@ -37,6 +38,7 @@ async function issueDetailsPage({ params }: Props) {
             maxWidth={{ initial: "500px" }}
             m={{ initial: "auto" }}
           >
+            <AssigneeIssue />
             <EditIssueButton id={issue.id} />
             <DeleteIssueButton id={issue.id} />
           </Flex>
