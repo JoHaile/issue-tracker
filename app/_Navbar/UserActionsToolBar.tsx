@@ -1,4 +1,4 @@
-import { Button, DropdownMenu, Text } from "@radix-ui/themes";
+import { Button, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import { User2 } from "lucide-react";
 import React from "react";
 import SignOutButton from "./SignOutButton";
@@ -33,7 +33,10 @@ async function UserActionsToolBar() {
       <DropdownMenu.Content>
         {session?.user.email}
         <DropdownMenu.Separator />
-        <ChangeTheme />
+        <Flex gap="2" align="center">
+          <Text color="gray">Change Theme : </Text>
+          <ChangeTheme />
+        </Flex>
         <DropdownMenu.Separator />
         <SignOutButton />
       </DropdownMenu.Content>
