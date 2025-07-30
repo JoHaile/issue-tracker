@@ -25,6 +25,23 @@ async function issueDetailsPage({ params }: Props) {
 
   if (!issue) notFound();
 
+  //? TEST
+  const users = await prisma.user.findMany({
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const handleAssignee = async (userID: string) => {
+    const updatedIssue = await prisma.issue.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        assignedToUserID: userID,
+      },
+    });
+  };
   return (
     <Grid columns={{ initial: "1", sm: "8" }} gap="5">
       <Box className="sm:col-span-6">
