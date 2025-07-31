@@ -1,10 +1,10 @@
 "use client";
 
-import { AlertDialog, Button, Flex, Text } from "@radix-ui/themes";
+import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import axios from "axios";
-import { Delete } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function DeleteIssueButton({ id }: { id: number }) {
   const [error, setError] = useState(false);
@@ -27,7 +27,7 @@ function DeleteIssueButton({ id }: { id: number }) {
       <AlertDialog.Root>
         <AlertDialog.Trigger>
           <Button color="red" disabled={deleting}>
-            <Delete />
+            <Trash2 />
             <span className="text-nowrap">
               {deleting ? "Deleting..." : "Delete Issue"}
             </span>

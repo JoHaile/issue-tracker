@@ -7,9 +7,11 @@ function SuccessMessage({ message = "success", icon = false }: Props) {
   return (
     <div className="p-4">
       <Callout.Root>
-        <Callout.Icon>
-          <MailPlus />
-        </Callout.Icon>
+        {icon && (
+          <Callout.Icon>
+            <MailPlus />
+          </Callout.Icon>
+        )}
         <Callout.Text>{message}</Callout.Text>
       </Callout.Root>
     </div>
