@@ -1,9 +1,9 @@
 import { auth } from "@/lib/auth";
-import { Button } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
+import IssueStatusFilter from "./_components/IssueStatusFilter";
 
 async function IssueToolbar() {
   const session = await auth.api.getSession({
@@ -11,17 +11,13 @@ async function IssueToolbar() {
   });
 
   return (
-    <div className="p-4">
-      {session ? (
-        <Link href="/issues/new">
-          <Button>New Issue</Button>
-        </Link>
-      ) : (
-        <Link href="/sign-up">
-          <Button>New Issue</Button>
-        </Link>
-      )}
-    </div>
+    <Flex justify="between" className="p-4 mb-3">
+      <IssueStatusFilter />
+
+      <Link href={session ? "/issues/new" : "/sign-up"}>
+        <Button>New Issue</Button>
+      </Link>
+    </Flex>
   );
 }
 

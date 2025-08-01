@@ -4,18 +4,27 @@ import React from "react";
 import { IssueStatusBadge } from "../components";
 import IssueToolbar from "./IssueToolbar";
 import Link from "next/link";
+import { Status } from "../generated/prisma";
 
-async function page() {
+interface Props {
+  searchParams: Promise<{ status: Status }>;
+}
+
+async function page({ searchParams }: Props) {
+  const { status } = await searchParams;
+  const statuses = Object.values(Status);
+  const validatedStatus = statuses.includes(status) ? status : undefined;
+
   const issues = await prisma.issue.findMany({
-    orderBy: {
-      createdAt: "desc",
+    where: {
+      status: validatedStatus,
     },
   });
 
   return (
     <div>
       <IssueToolbar />
-      <Table.Root variant="surface" className="max-w-5xl">
+      <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
