@@ -3,6 +3,7 @@ import { Heading } from "@radix-ui/themes";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
+import LatestIssue from "./LatestIssue";
 
 async function dashboardPage() {
   const session = await auth.api.getSession({
@@ -15,7 +16,8 @@ async function dashboardPage() {
 
   return (
     <>
-      <Heading> Dashboard Page {session.user.name} </Heading>
+      <Heading className="capitalize"> Welcome {session.user.name}</Heading>
+      <LatestIssue />
     </>
   );
 }

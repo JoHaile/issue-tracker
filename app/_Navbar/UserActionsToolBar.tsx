@@ -1,4 +1,4 @@
-import { Button, DropdownMenu, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Button, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import { User2 } from "lucide-react";
 import React from "react";
 import SignOutButton from "./SignOutButton";
@@ -6,6 +6,7 @@ import ChangeTheme from "@/lib/theme";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
+import UserAvatar from "../components/UserAvatar";
 
 async function UserActionsToolBar() {
   const session = await auth.api.getSession({
@@ -23,11 +24,9 @@ async function UserActionsToolBar() {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <div className="size-10 grid place-content-center rounded-full overflow-hidden">
-          <Button variant="soft" radius="full" size="4">
-            <User2 />
-          </Button>
-        </div>
+        <span className="cursor-pointer">
+          <UserAvatar image={session.user.image} />
+        </span>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content>
