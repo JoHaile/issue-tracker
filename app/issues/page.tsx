@@ -6,9 +6,10 @@ import IssueToolbar from "./IssueToolbar";
 import Link from "next/link";
 import { Issue, Status } from "../generated/prisma";
 import { ArrowUpNarrowWide } from "lucide-react";
+import Pagination from "../components/Pagination";
 
 interface Props {
-  searchParams: Promise<{ status: Status; orderBy: keyof Issue }>;
+  searchParams: Promise<{ status: Status; orderBy: keyof Issue; page: string }>;
 }
 
 const issueHeaders: {
@@ -39,11 +40,23 @@ async function page({ searchParams }: Props) {
     .includes(orderBy)
     ? { [orderBy]: "asc" }
     : undefined;
+
+  const currentPage = parseInt((await searchParams).page) || 1;
+  const itemsPerPage = 10;
+
   const issues = await prisma.issue.findMany({
     where: {
       status: validatedStatus,
     },
     orderBy: validatedSortOrder,
+    skip: (currentPage - 1) * itemsPerPage,
+    take: itemsPerPage,
+  });
+
+  const TotalIssue = await prisma.issue.count({
+    where: {
+      status: validatedStatus,
+    },
   });
 
   return (
@@ -97,6 +110,12 @@ async function page({ searchParams }: Props) {
           ))}
         </Table.Body>
       </Table.Root>
+
+      <Pagination
+        totalItems={TotalIssue}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 }
