@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { Button, Heading } from "@radix-ui/themes";
+import { Button, Flex, Heading } from "@radix-ui/themes";
 import { headers } from "next/headers";
 import Link from "next/link";
 
@@ -11,13 +11,20 @@ export default async function Home() {
   return (
     <div>
       {session ? (
-        <div>
+        <div className="text-center capitalize">
           <Heading>Welcome {session.user.name}</Heading>
         </div>
       ) : (
-        <Link href="/sign-up">
-          <Button variant="soft">Sign Up / Log In</Button>
-        </Link>
+        <Flex align="center" direction={"column"} justify={"between"} gap={"8"}>
+          <Heading>
+            Welcome to Issue Tracker Sign up/Log in to Create, Update, Delete,
+            and Assign an Issue.
+          </Heading>
+
+          <Link href="/sign-up">
+            <Button variant="soft">Sign Up / Log In</Button>
+          </Link>
+        </Flex>
       )}
     </div>
   );
