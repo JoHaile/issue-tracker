@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { Heading } from "@radix-ui/themes";
+import { Flex, Grid, Heading } from "@radix-ui/themes";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -35,10 +35,17 @@ async function dashboardPage() {
 
   return (
     <>
-      <Heading className="capitalize mb-5">Welcome {session.user.name}</Heading>
-      {/* <IssueSummary closed={closed} inProgress={inProgress} open={open} /> */}
-      <IssueCharts closed={closed} inProgress={inProgress} open={open} />
-      {/* <LatestIssue /> */}
+      <Heading className="capitalize pb-10">
+        Welcome {session.user.name}
+      </Heading>
+
+      <Grid gap={"5"} columns={{ initial: "1", md: "2" }}>
+        <Flex direction="column" gapY={"5"}>
+          <IssueSummary closed={closed} inProgress={inProgress} open={open} />
+          <IssueCharts closed={closed} inProgress={inProgress} open={open} />
+        </Flex>
+        <LatestIssue />
+      </Grid>
     </>
   );
 }

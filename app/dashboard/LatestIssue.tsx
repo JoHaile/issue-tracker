@@ -16,12 +16,12 @@ async function LatestIssue() {
     orderBy: {
       createdAt: "desc",
     },
-    take: 5,
+    take: 6,
   });
 
   return (
     <Card>
-      <Heading>Latest Issues</Heading>
+      <Heading className="mb-5">Latest Issues</Heading>
       <Table.Root>
         <Table.Body>
           {issues.map((issue) => (
