@@ -60,7 +60,11 @@ export async function PATCH(request: NextRequest, { params }: Props) {
   return NextResponse.json(updatedIssue, { status: 200 });
 }
 
-export async function DELETE(request: NextRequest, { params }: Props) {
+export async function DELETE(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { params } = context;
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -71,7 +75,7 @@ export async function DELETE(request: NextRequest, { params }: Props) {
       { status: 401 }
     );
   }
-  const { id } = params;
+  const { id } = await params;
 
   const issue = await prisma.issue.findUnique({
     where: {
