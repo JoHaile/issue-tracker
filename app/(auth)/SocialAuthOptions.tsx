@@ -2,8 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Button, Flex } from "@radix-ui/themes";
-import { Facebook, Github } from "lucide-react";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaGithub } from "react-icons/fa";
 
 type providers = "google" | "github" | "apple" | "facebook" | "microsoft";
 
@@ -35,7 +34,7 @@ function SocialAuthOptions() {
         type="button"
         onClick={() => handleSocialAuth("github")}
       >
-        <Github />
+        <FaGithub />
         Git Hub
       </Button>
     </Flex>
