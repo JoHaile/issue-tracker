@@ -71,38 +71,38 @@ export async function PATCH(
   return NextResponse.json(updatedIssue, { status: 200 });
 }
 
-export async function DELETE(
-  request: NextRequest,
-  context: Context // FIX: Type the entire context object directly
-) {
-  const { id } = context.params; // FIX: Access 'params' via the 'context' object
+// export async function DELETE(
+//   request: NextRequest,
+//   context: Context // FIX: Type the entire context object directly
+// ) {
+//   const { id } = context.params; // FIX: Access 'params' via the 'context' object
 
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+//   const session = await auth.api.getSession({
+//     headers: await headers(),
+//   });
 
-  if (!session) {
-    return NextResponse.json(
-      { error: "can not find the session" },
-      { status: 401 }
-    );
-  }
+//   if (!session) {
+//     return NextResponse.json(
+//       { error: "can not find the session" },
+//       { status: 401 }
+//     );
+//   }
 
-  const issue = await prisma.issue.findUnique({
-    where: {
-      id: parseInt(id),
-    },
-  });
+//   const issue = await prisma.issue.findUnique({
+//     where: {
+//       id: parseInt(id),
+//     },
+//   });
 
-  if (!issue)
-    return NextResponse.json({ error: "invalid issue." }, { status: 404 });
+//   if (!issue)
+//     return NextResponse.json({ error: "invalid issue." }, { status: 404 });
 
-  await prisma.issue.delete({
-    where: {
-      id: parseInt(id),
-    },
-  });
+//   await prisma.issue.delete({
+//     where: {
+//       id: parseInt(id),
+//     },
+//   });
 
-  // Conventionally, DELETE returns a 204 No Content status on successful deletion
-  return new NextResponse(null, { status: 204 });
-}
+//   // Conventionally, DELETE returns a 204 No Content status on successful deletion
+//   return new NextResponse(null, { status: 204 });
+// }
