@@ -4,9 +4,16 @@ import { prisma } from "@/prisma/client";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
+// Define the correct type structure for route parameters
+interface Context {
+  params: {
+    id: string; // Must match the dynamic segment [id]
+  };
+}
+
 export async function PATCH(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: Context // FIX: Type the entire context object directly
 ) {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -19,14 +26,14 @@ export async function PATCH(
     );
   }
 
-  const { id } = context.params;
+  const { id } = context.params; // FIX: Access 'params' via the 'context' object
   const body = await request.json();
   const validation = patchedIssueSchema.safeParse(body);
 
   if (!validation.success)
     return NextResponse.json(validation.error.issues, { status: 400 });
 
-  // FIXED: Removed 'status' from destructuring, as it does not exist on the validated type.
+  // Removed 'status' from destructuring, as it does not exist on the validated type.
   const { assignedToUserID, title, description } = validation.data;
 
   if (assignedToUserID) {
@@ -57,15 +64,18 @@ export async function PATCH(
       title,
       description,
       assignedToUserID,
-      // FIXED: Removed 'status' from the update data.
+      // Removed 'status' from the update data.
     },
   });
 
   return NextResponse.json(updatedIssue, { status: 200 });
 }
 
-export async function DELETE(context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function DELETE(
+  request: NextRequest,
+  context: Context // FIX: Type the entire context object directly
+) {
+  const { id } = context.params; // FIX: Access 'params' via the 'context' object
 
   const session = await auth.api.getSession({
     headers: await headers(),
