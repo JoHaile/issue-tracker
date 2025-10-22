@@ -1,10 +1,20 @@
-import { issueSchema, patchedIssueSchema } from "@/app/validationSchema";
+import { patchedIssueSchema } from "@/app/validationSchema";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/prisma/client";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PATCH(request: NextRequest, params: { id: string }) {
+// Define the correct type structure for route parameters
+interface RouteContext {
+  params: {
+    id: string; // Must match the dynamic segment [id]
+  };
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: RouteContext // Correctly receive 'params' object via destructuring
+) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -23,15 +33,18 @@ export async function PATCH(request: NextRequest, params: { id: string }) {
   if (!validation.success)
     return NextResponse.json(validation.error.issues, { status: 400 });
 
-  if (body.assignedToUserID) {
+  // FIXED: Removed 'status' from destructuring, as it does not exist on the validated type.
+  const { assignedToUserID, title, description } = validation.data;
+
+  if (assignedToUserID) {
     const user = await prisma.user.findUnique({
       where: {
-        id: body.assignedToUserID,
+        id: assignedToUserID,
       },
     });
 
     if (!user) {
-      return NextResponse.json({ error: "user  not found." }, { status: 400 });
+      return NextResponse.json({ error: "user not found." }, { status: 400 });
     }
   }
 
@@ -41,23 +54,27 @@ export async function PATCH(request: NextRequest, params: { id: string }) {
     },
   });
 
-  if (!issue) return NextResponse.json("Invalid issue. ", { status: 400 });
+  if (!issue) return NextResponse.json("Invalid issue.", { status: 404 }); // Use 404 for resource not found
 
   const updatedIssue = await prisma.issue.update({
     where: {
       id: parseInt(id),
     },
     data: {
-      title: body.title,
-      description: body.description,
-      assignedToUserID: body.assignedToUserID,
+      title,
+      description,
+      assignedToUserID,
+      // FIXED: Removed 'status' from the update data.
     },
   });
 
   return NextResponse.json(updatedIssue, { status: 200 });
 }
 
-export async function DELETE(request: NextRequest, params: { id: string }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: RouteContext // Correctly receive 'params' object via destructuring
+) {
   const { id } = params;
 
   const session = await auth.api.getSession({
@@ -86,5 +103,6 @@ export async function DELETE(request: NextRequest, params: { id: string }) {
     },
   });
 
-  return NextResponse.json({}, { status: 200 });
+  // Conventionally, DELETE returns a 204 No Content status on successful deletion
+  return new NextResponse(null, { status: 204 });
 }
