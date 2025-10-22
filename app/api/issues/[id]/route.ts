@@ -4,10 +4,7 @@ import { prisma } from "@/prisma/client";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-interface Props {
-  params: { id: string };
-}
-export async function PATCH(request: NextRequest, { params }: Props) {
+export async function PATCH(request: NextRequest, params: { id: string }) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -19,7 +16,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     );
   }
 
-  const { id } = await params;
+  const { id } = params;
   const body = await request.json();
   const validation = patchedIssueSchema.safeParse(body);
 
@@ -60,11 +57,9 @@ export async function PATCH(request: NextRequest, { params }: Props) {
   return NextResponse.json(updatedIssue, { status: 200 });
 }
 
-export async function DELETE(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { params } = context;
+export async function DELETE(request: NextRequest, params: { id: string }) {
+  const { id } = params;
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -75,7 +70,6 @@ export async function DELETE(
       { status: 401 }
     );
   }
-  const { id } = await params;
 
   const issue = await prisma.issue.findUnique({
     where: {

@@ -18,13 +18,13 @@ function SignUpForm() {
         className="max-w-lg text-left m-auto space-y-5 "
       >
         <div className="mt-8">
-          {state?.errorMessage && (
+          {/* {state?.errorMessage && (
             <ErrorComponent message={state?.errorMessage} icon={true} />
           )}
 
           {state?.successMessage && (
             <SuccessMessage message={state.successMessage} icon={true} />
-          )}
+          )} */}
         </div>
 
         <SocialAuthOptions />

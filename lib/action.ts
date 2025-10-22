@@ -65,16 +65,7 @@ export const login = async (prevState: unknown, formData: FormData) => {
     });
   } catch (error) {
     if (error instanceof APIError) {
-      switch (error.status) {
-        case "UNAUTHORIZED":
-          return { errorMessage: "Invalid email or Password." };
-        case "NOT_FOUND":
-          return { errorMessage: "User not found." };
-        case "BAD_REQUEST":
-          return { errorMessage: "something went wrong" };
-        default:
-          return { errorMessage: "please verify your email?." };
-      }
+      return { errorMessage: error.message };
     }
     console.log(error);
   }
