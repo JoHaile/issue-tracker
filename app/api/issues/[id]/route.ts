@@ -4,16 +4,9 @@ import { prisma } from "@/prisma/client";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-// Define the correct type structure for route parameters
-interface RouteContext {
-  params: {
-    id: string; // Must match the dynamic segment [id]
-  };
-}
-
 export async function PATCH(
   request: NextRequest,
-  { params }: RouteContext // Correctly receive 'params' object via destructuring
+  context: { params: { id: string } }
 ) {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -26,7 +19,7 @@ export async function PATCH(
     );
   }
 
-  const { id } = params;
+  const { id } = context.params;
   const body = await request.json();
   const validation = patchedIssueSchema.safeParse(body);
 
@@ -73,9 +66,9 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: RouteContext // Correctly receive 'params' object via destructuring
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
 
   const session = await auth.api.getSession({
     headers: await headers(),
